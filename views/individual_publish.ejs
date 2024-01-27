@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css\bootstrap.css" rel="stylesheet">
+    <link href="css\publish.css" type="text/css" rel="stylesheet">
+    <title>发布</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="/">给它们一个家</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>      
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">首页</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/adoption">领养</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/organization">机构/组织</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">联系我们</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">个人主页</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    
+    <img src="/images/bbgg2.jpeg" class="bgpic">
+
+    <div class="container-fluid">
+    
+    <form id="publishForm" enctype="multipart/form-data">
+      <table align="center" cellpadding="10">
+        <h3>个人发布领养</h3>
+        <tr>
+          <td>名字</td>
+          <td><input type="text" id="name" maxlength="30" /></td>
+        </tr>
+
+        <tr>
+          <td>年龄</td>
+          <td><input type="text" id="age" maxlength="30" /></td>
+        </tr>
+
+        <tr>
+          <td>动物种类</td>
+          <td>
+            <select name="species" id="species">
+              <option value="-1">选择</option>
+              <option value="cat">猫猫</option>
+              <option value="dog">狗狗</option>
+              <option value="mouse">鼠鼠</option>
+              <option value="bird">鸟类</option>
+              <option value="other">其他</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>性别</td>
+          <td>
+            <input type="radio" name="gender" id="male" value="male"/> 公
+            <input type="radio" name="gender" id="female" value="female"/> 母
+            <input type="radio" name="gender" id="unknown" value="unknown"/> 未知
+          </td>
+        </tr>
+
+        <tr>
+          <td>描述<br /><br /><br /></td>
+          <td><textarea name="description" id="description" rows="4" cols="30"></textarea></td>
+        </tr>
+
+        <tr>
+          <td>请上传照片</td>
+          <td>
+            <input id="image" name="image" type="file" accept="image/*" tabindex="4" required>
+            <img id="previewImage" src="#" alt="Preview" style="display:none; max-width: 300px; margin-top: 10px;">
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" align="center">
+            <button type="button" id="saveForm" name="saveForm" class="btn btn-primary custom-button11" onclick="submitForm()">提交</button>
+          </td>
+        </tr>
+      </table>
+      
+    </form>
+  </div>
+
+    <script>
+
+
+      // 提交表单
+      function submitForm() {
+        const formData = {
+          name: document.getElementById('name').value,
+          age: document.getElementById('age').value,
+          species: document.getElementById('species').value,
+          gender:document.querySelector('input[name="gender"]:checked').value,
+          description: document.getElementById('description').value,
+        };
+
+        // 创建一个新的 FormData 对象
+        const formDataObject = new FormData();
+
+        // 将手动构造的数据添加到 FormData 对象中
+        for (const key in formData) {
+          formDataObject.append(key, formData[key]);
+        }
+
+        console.log(formData)
+
+        // 添加文件数据（照片）
+        const imageInput = document.getElementById('image');
+        const imageFile = imageInput.files[0];
+        formDataObject.append('image', imageFile);
+
+        fetch('/individual_publish', {
+            method: 'POST',
+            headers: {
+                // 添加 user-type 头
+                'user-type': 'individual',  // 或 'organization'
+            },
+            body: formDataObject,
+        })
+          .then(response => {
+              if (response.status === 201) {
+                  // 处理成功响应
+                  alert('发布成功，等待审核！');
+              } else {
+                  // 处理其他响应，比如错误
+                  return response.json();
+              }
+          })
+            .then(data => {
+                // 处理其他成功响应的数据
+                console.log('Animal created:', data);
+            })
+            .catch(error => {
+                // 处理错误
+                console.error('Error creating animal:', error);
+                alert('发布失败，请稍后重试。');
+            });
+
+      }
+    </script>
+</body>
+</html>

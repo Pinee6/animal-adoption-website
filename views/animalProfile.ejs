@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css\bootstrap.css" rel="stylesheet">
+    <link href="css\animalProfile.css" rel="stylesheet">
+    <title>主页</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-black fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="/">给它们一个家</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>      
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">首页</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/adoption">领养</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/organization">机构/组织</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">联系我们</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">个人主页</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    
+    <img src="/images/bbgg2.jpeg" class="bgpic">
+
+    <div class="container animal">
+        <div id="animalProfile" tabindex="-1">
+            <div id="animalDetails">
+                <h3><%= animal.name %></h3>
+                <div>年龄: <%= animal.age %>岁</div>
+                <div>种类: <%= animal.species %> </div>
+                <div>性别:<%= animal.gender %></div>
+                <div>描述: <%= animal.description %></div>
+                <div>发布者: <%= user.username %></div>
+            </div>
+        </div>
+
+
+        <div id="animalImage">
+            <img src="/images/animal/<%= animal.imageName %>" alt="Animal Image">
+        </div>
+    </div>
+
+    <script src="js\bootstrap.bundle.js"></script>
+</body>
+</html>

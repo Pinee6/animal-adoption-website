@@ -1,0 +1,229 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  
+
+  .bgpic {
+    /* height: 100vh; */
+    width: 100%;
+    /* min-height: 300px; */
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-filter: blur(5px); /* Chrome, Safari, Opera */
+    filter: blur(5px);
+  }
+
+  .navbar-black .navbar-brand {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  .navbar-black .navbar-nav .active > .nav-link, .navbar-black .navbar-nav .nav-link.active, .navbar-black .navbar-nav .nav-link.show, .navbar-black .navbar-nav .show > .nav-link {
+    color: #ffffff;
+  }
+  
+  .navbar-black .navbar-nav .nav-link {
+    color: #ffffff;
+  }
+  
+  .navbar-toggler {
+    background: gray;
+  }
+  
+  .navbar-nav {
+    text-align: center;
+  }
+  
+  .nav-link {
+    padding: .2rem 1rem;
+  }
+  
+  .nav-link.active,.nav-link:focus{
+    color: grey;
+  }
+  
+  .navbar-toggler {
+    padding: 1px 5px;
+    font-size: 18px;
+    line-height: 0.3;
+  }
+  
+  .navbar-black .navbar-nav .nav-link:focus, .navbar-black .navbar-nav .nav-link:hover {
+    color:gray;
+  }
+  
+  .wrapper{
+    display: flex;
+    position: relative;
+    margin-top: 50px;
+  }
+  
+  .wrapper .sidebar{
+    width: 200px;
+    height: 100%;
+    padding: 30px 0px;
+    position: fixed;
+  }
+  
+
+  .wrapper .sidebar ul li{
+    padding: 15px;
+    border-bottom: 1px solid #bdb8d7;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }    
+  
+  .wrapper .sidebar ul li a{
+    color: rgb(0, 0, 0);
+    display: block;
+    text-decoration: none;
+  }
+  
+  .wrapper .sidebar ul li a .fas{
+    width: 25px;
+  }
+  
+  .wrapper .sidebar ul li:hover{
+    background-color: #899850;
+  }
+      
+  .wrapper .sidebar ul li:hover a{
+    color: #fff;
+  }
+     
+  .wrapper .main_content{
+    margin-left: 220px;
+    width: 100%;
+  }
+    
+  /* main_content div {
+    outline: none;
+  } */
+
+.message {
+    margin: 18px 0 0;
+    color: #000000;
+    font-size: 18px;
+  }
+.message a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+
+  .cards {
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  
+  .cards__item {
+    display: flex;
+    /* padding: 1rem; */
+    /* width: 33.33%; */
+    justify-content: center;
+    display: flex;
+    padding: 1rem;
+    @media(min-width: 40rem) {
+      width: 50%;
+    }
+    @media(min-width: 56rem) {
+      width: 33.3333%;
+    }
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .card__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center; /* 垂直居中 */
+  }
+
+  .card__image {
+    height: 250px;
+    object-fit: cover; /* 保持图片比例，填充整个容器 */
+    background-position: center center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    overflow: hidden;
+    position: relative;
+    transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);;
+    background-image: url('./images/animal/<%= animal.imageName %>');
+  }
+  
+  .card__title {
+    color: #444444;
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
+  
+  .card__text {
+    margin-top: 1rem;
+    flex: 1 1 auto;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+  
+  .cards .btn {
+    background-color: #6f7655;
+    border: 1px solid #343d16;
+    color: #fefefe;
+    font-size: 1.3rem;
+    padding: 0.5rem;
+  }
+  
+  .cards .btn--block {
+    display: block;
+    width: 80%;
+  }
+  
+  .cards .btn:hover {
+    background-color: #fff; /* 鼠标悬浮时的背景色 */
+    color: #000000; /* 鼠标悬浮时的文本色 */
+}
+
+.custom-button{
+  margin-top: 10px;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 20%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  text-align: center;
+  /* margin-left: 40%; */
+}

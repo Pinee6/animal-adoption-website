@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css\bootstrap.css" rel="stylesheet">
+    <link href="css\publish.css" rel="stylesheet">
+    <title>发布</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="/">给它们一个家</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>      
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">首页</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/adoption">领养</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/organization">机构/组织</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">联系我们</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">个人主页</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <img src="/images/bbgg2.jpeg" class="bgpic">
+
+    <h3>组织发布领养</h3>
+
+    <form id="organizationForm" enctype="multipart/form-data">
+      <table id="adoptionTable">
+        <tr>
+            <td align="center"><b>序号</b></td>
+            <td align="center"><b>名字</b></td>
+            <td align="center"><b>年龄</b></td>
+            <td align="center"><b>种类</b></td>
+            <td align="center"><b>性别</b></td>
+            <td align="center"><b>描述</b></td>
+            <td align="center"><b>照片</b></td>
+        </tr>
+  
+        <tr>
+            <td>1</td>
+            <td><input type="text" name="name_1" maxlength="30" id="name_1" multiple/></td>
+            <td><input type="text" name="age_1" maxlength="30" id="age_1" multiple/></td>
+            <td>
+              <select name="species_1" id="species_1">
+                <option value="-1">选择</option>
+                <option value="cat">猫猫</option>
+                <option value="dog">狗狗</option>
+                <option value="mouse">鼠鼠</option>
+                <option value="bird">鸟类</option>
+                <option value="other">其他</option>
+              </select>
+            </td>
+            <td>
+              <input type="radio" name="gender_1" value="Male" id="gender_1" multiple/>公
+              <input type="radio" name="gender_1" value="Female" id="gender_1" multiple/>母
+              <input type="radio" name="gender_1" value="Unknown" id="gender_1" multiple/>未知
+           </td>
+           <td><textarea name="description_1" id="description_1" rows="4" cols="30" multiple></textarea></td>
+           <td>
+            <input id="image_1" name="image_1" type="file" accept="image/*" tabindex="4" multiple>
+           </td>
+           <td>
+            <button type="button" id="saveForm" name="saveForm" class="btn btn-primary" onclick="submitForm(1)">提交</button>
+           </td>
+  
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><input type="text" name="name_2" maxlength="30" id="name_2" multiple/></td>
+            <td><input type="text" name="age_2" maxlength="30" id="age2" multiple/></td>
+            <td>
+              <select name="species_2" id="species_2">
+                <option value="-1">选择</option>
+                <option value="cat">猫猫</option>
+                <option value="dog">狗狗</option>
+                <option value="mouse">鼠鼠</option>
+                <option value="bird">鸟类</option>
+                <option value="other">其他</option>
+              </select>
+            </td>
+            <td>
+              <input type="radio" name="gender_2" value="Male" id="gender_2" multiple/>公
+              <input type="radio" name="gender_2" value="Female" id="gender_2" multiple/>母
+              <input type="radio" name="gender_2" value="Unknown" id="gender_2" multiple/>未知
+           </td>
+           <td><textarea name="description_2" id="description_2" rows="4" cols="30" multiple></textarea></td>
+           <td>
+            <input id="image_2" name="image_2" type="file" accept="image/*" tabindex="4" multiple required>
+           </td>
+           <td>
+            <button type="button" id="saveForm" name="saveForm" class="btn btn-primary" onclick="submitForm(2)">提交</button>
+           </td>
+  
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><input type="text" name="name_3" maxlength="30" id="name_3" multiple/></td>
+            <td><input type="text" name="age_3" maxlength="30" id="age_3" multiple/></td>
+            <td>
+              <select name="species_3" id="species_3">
+                <option value="-1">选择</option>
+                <option value="cat">猫猫</option>
+                <option value="dog">狗狗</option>
+                <option value="mouse">鼠鼠</option>
+                <option value="bird">鸟类</option>
+                <option value="other">其他</option>
+              </select>
+            </td>
+            <td>
+              <input type="radio" name="gender_3" value="Male" id="gender_3" multiple/>公
+              <input type="radio" name="gender_3" value="Female" id="gender_3" multiple />母
+              <input type="radio" name="gender_3" value="Unknown" id="gender_3" multiple/>未知
+           </td>
+           <td><textarea name="description_3" id="description_3" rows="4" cols="30" multiple></textarea></td>
+           <td>
+            <input id="image_3" name="image_3" type="file" accept="image/*" tabindex="4" required multiple>
+           </td>
+           <td>
+            <button type="button" id="saveForm" name="saveForm" class="btn btn-primary" onclick="submitForm(3)">提交</button>
+           </td>
+        </tr>
+      </table>
+    </form>
+    
+
+    <button class="custom-button" onclick="addRow()">新建</button>
+
+
+    <script>
+      // 获取表格
+      var table = document.getElementById('adoptionTable');
+      function addRow() {
+        var table = document.getElementById("adoptionTable");
+        var newRow = table.insertRow(table.rows.length);
+        var rowNum = table.rows.length - 1;
+
+        newRow.id = "row_" + rowNum;
+        newRow.insertCell(0).innerHTML = rowNum;
+        newRow.insertCell(1).innerHTML = '<input type="text" name="name_' + rowNum + '" maxlength="30" multiple />';
+        newRow.insertCell(2).innerHTML = '<input type="text" name="age_' + rowNum + '" maxlength="30" multiple />';
+        newRow.insertCell(3).innerHTML = '<select name="species_' + rowNum + '">' +
+          '<option value="-1">选择</option>' +
+          '<option value="cat">猫猫</option>' +
+          '<option value="dog">狗狗</option>' +
+          '<option value="mouse">鼠鼠</option>' +
+          '<option value="bird">鸟类</option>' +
+          '<option value="other">其他</option>' +
+          '</select>';
+        newRow.insertCell(4).innerHTML = '<input type="radio" name="gender_' + rowNum + '" value="Male" />公' +
+          '<input type="radio" name="gender_' + rowNum + '" value="Female" />母' +
+          '<input type="radio" name="gender_' + rowNum + '" value="Unknown" />未知';
+        newRow.insertCell(5).innerHTML = '<textarea name="description_' + rowNum + '" rows="4" cols="30" multiple></textarea>';
+        newRow.insertCell(6).innerHTML = '<input type="file" name="image_' + rowNum + '" accept="image/*" multiple required />';
+        newRow.insertCell(7).innerHTML = '<button type="button" id="saveForm" class="btn btn-primary" onclick="submitForm(' + rowNum + ')">提交</button>';
+      }
+
+      // 提交表单
+      function submitForm(rowNum) {
+        const formData = {
+          name: document.getElementById('name_'+rowNum).value,
+          age: document.getElementById('age_'+rowNum).value,
+          species: document.getElementById('species_'+rowNum).value,
+          gender:document.querySelector('input[name="gender_' + rowNum + '"]:checked').value,
+          description: document.getElementById('description_'+rowNum).value,
+        };
+
+        // 创建一个新的 FormData 对象
+        const formDataObject = new FormData();
+
+        // 将手动构造的数据添加到 FormData 对象中
+        for (const key in formData) {
+          formDataObject.append(key, formData[key]);
+        }
+
+        console.log(formData)
+
+        // 添加文件数据（照片）
+        const imageInput = document.getElementById('image_'+rowNum);
+        const imageFile = imageInput.files[0];
+        formDataObject.append('image', imageFile);
+
+        fetch('/organization_publish', {
+            method: 'POST',
+            headers: {
+                // 添加 user-type 头
+                'user-type': 'organizaiton',  // 或 'individual'
+            },
+            body: formDataObject,
+        })
+          .then(response => {
+              if (response.status === 201) {
+                  // 处理成功响应
+                  alert('发布成功，等待审核！');
+              } else {
+                  // 处理其他响应，比如错误
+                  return response.json();
+              }
+          })
+            .then(data => {
+                // 处理其他成功响应的数据
+                console.log('Animal created:', data);
+            })
+            .catch(error => {
+                // 处理错误
+                console.error('Error creating animal:', error);
+                alert('发布失败，请稍后重试。');
+            });
+
+      }
+
+
+      
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css\bootstrap.css" rel="stylesheet">
+    <link href="css\profile.css" rel="stylesheet">
+    <title>主页</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-black fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="/">给它们一个家</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>      
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">首页</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/adoption">领养</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/organization">机构/组织</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">联系我们</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">个人主页</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    
+    <img src="/images/bbgg2.jpeg" class="bgpic">
+
+
+    <div class="wrapper">
+        <div class="sidebar">
+            <ul>
+                <li><a href="#info_btn" id="info_btn"><i class="fas"></i>资料信息</a></li>
+                <li><a href="#adoption_btn" id="adoption_btn"><i class="fas"></i>我的发布</a></li>
+            </ul> 
+        </div>
+        <div class="container-fluid main_content">
+            <div id="info" tabindex="-1">
+              <h3 style="margin-bottom: 20px;"><%= user.username %></h3>
+              <p>简介:<%= user.description %></p>
+              <p>电话号码:<%= user.phoneNumber %></p>
+              <p>地址:<%= user.address %></p>
+              <p>邮箱:<%= user.email %></p>
+
+              <button class="btn btn-primary custom-button" id="editProfileBtn">编辑资料</button>
+
+              <!-- 编辑表单  -->
+              <div id="editProfileForm" style="display: none;">
+                  <form id="profileForm">
+                      <label for="editDescription">简介：</label>
+                      <textarea id="editDescription" name="editDescription"><%= user.description %></textarea>
+
+                      <label for="editPhoneNumber">电话号码：</label>
+                      <input type="text" id="editPhoneNumber" name="editPhoneNumber" value="<%= user.phoneNumber %>">
+
+                      <label for="editAddress">地址：</label>
+                      <input type="text" id="editAddress" name="editAddress" value="<%= user.address %>">
+
+                      <label for="editEmail">邮箱：</label>
+                      <input type="text" id="editEmail" name="editEmail" value="<%= user.email %>">
+
+                      <label for="editUsername">用户名：</label>
+                      <input type="text" id="editUsername" name="editUsername" value="<%= user.username %>">
+
+                      <button type="button" class="btn btn-success" id="submitProfile">保存</button>
+                  </form>
+              </div>
+            </div> 
+
+            
+
+            <div id="adoption" tabindex="-1">
+                <ul class="cards">
+                  <% animals.forEach(animal => { %>
+                    <li class="cards__item">
+                      <div class="card">
+                        <div class="card__image" style="background-image: url('/images/animal/<%=animal.imageName%>');"></div>
+                        <div class="card__content">
+                          <div class="card__title"><%= animal.name %></div>
+                          <p class="card__text">年龄: <%= animal.age %>岁</p>
+                          <p class="card__text"><%= animal.description %></p>
+                          <button class="btn btn--block card__btn" onclick="viewAnimalDetails('<%= animal.id %>')">查看详情</button>
+                        </div>
+                      </div>
+                    </li>
+                  <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="js\bootstrap.bundle.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var infoBtn = document.getElementById("info_btn");
+            var adoptionBtn = document.getElementById("adoption_btn");
+            var infoContent = document.getElementById("info");
+            var adoptionContent = document.getElementById("adoption");
+        
+            // 默认显示资料信息
+            infoContent.style.display = "block";
+            adoptionContent.style.display = "none";
+        
+            // 资料信息按钮点击事件
+            infoBtn.addEventListener("click", function () {
+                infoContent.style.display = "block";
+                adoptionContent.style.display = "none";
+            });
+        
+            // 我的发布按钮点击事件
+            adoptionBtn.addEventListener("click", function () {
+                infoContent.style.display = "none";
+                adoptionContent.style.display = "block";
+            });
+        });
+
+        function submitForm() {
+            const editForm = document.getElementById('editForm');
+
+            // 构建要发送的数据对象
+            const formData = new FormData(editForm);
+
+            // 发送 POST 请求到后端
+            fetch('/profile', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 处理返回的数据，如果需要的话
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('提交编辑信息时出错:', error);
+            });
+        }
+
+        function viewAnimalDetails(animalId) {
+          window.location.href = `/animalProfile?id=${animalId}`;
+        }
+    </script>
+    
+</body>
+</html>

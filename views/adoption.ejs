@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css\adoption.css">
+    <link href="css\bootstrap.css" rel="stylesheet">
+    <title>领养</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-black fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="/">给它们一个家</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>      
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">首页</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="/adoption">领养</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/organization">机构/组织</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">联系我们</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/profile">个人主页</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    
+    <img src="/images/bbgg2.jpeg" class="bgpic">
+
+      <div class="container-fluid main_content">
+        <div id="adoption" tabindex="-1">
+          
+          <ul class="cards">
+            <% for (let animal of animals) { %>
+              <li class="cards__item">
+                <div class="card" data-species="<%= animal.species%>">
+                  
+                  <div class="card__image" style="background-image: url('/images/animal/<%= animal.imageName %>');"></div>
+                  <div class="card__content">
+                    <div class="card__title"><%= animal.name%></div>
+                    <p class="card__text"> <%= animal.age %>岁, <%= animal.description %></p>
+                    <button class="btn btn--block card__btn" onclick="viewAnimalDetails('<%= animal.id %>')">查看详情</button>
+                  </div>
+                </div>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+
+    <script src="js\bootstrap.bundle.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      // 点击按钮时跳转到动物详情页，并传递动物的 ID
+      function viewAnimalDetails(animalId) {
+        console.log(animalId)
+        window.location.href = `/animalProfile?id=${animalId}`;
+      }
+
+      $(document).ready(function () {
+
+        // 获取后端提供的动物信息
+        fetch('/adoption')  // 替换为实际的后端 API 地址
+          .then(response => response.json())
+          .then(data => {
+            console.log('Fetched data:', data);
+
+            // 渲染动物信息到页面
+            renderAnimalCards(data);
+          })
+          .catch(error => {
+            console.error('获取动物信息时出错:', error);
+          });
+
+        function renderAnimalCards(animalData) {
+
+          // 清空已有的卡片
+          $('.cards').empty();
+
+          if (animalData && animalData.animals && animalData.animals.length > 0) {
+            animalData.animals.forEach(animal => {
+              const cardHtml = `
+                <li class="cards__item">
+                  <div class="card"  data-species="${animal.species}">
+                    <div class="card__image" style="background-image: url('..\\images\\adoption\\${animal.imageName}');"></div>
+                    <div class="card__content">
+                      <div class="card__title">${animal.name}</div>
+                      <p class="card__text">${animal.age}, ${animal.description}</p>
+                      <button class="btn btn--block card__btn">查看详情</button>
+                    </div>
+                  </div>
+                </li>
+              `;
+
+            $('.cards').append(cardHtml);
+          });
+        }else {
+          $cards.append('<p>No animals available.</p>');
+        }
+      }
+    });
+    </script>
+
+</body>
+</html

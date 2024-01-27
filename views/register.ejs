@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css\bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="css\login.css" rel="stylesheet" type="text/css">
+  <title>注册</title>
+</head>
+<body>
+
+  <div class="login-page">
+    <div class="form">
+      <ul class="nav nav-tabs mb-3">
+        <li class="nav-item">
+          <a class="nav-link active" id="individualTab" data-bs-toggle="tab" href="#individualFormTab">个人</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="organizationTab" data-bs-toggle="tab" href="#organizationFormTab">组织</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- 个人注册表单 -->
+        <div class="tab-pane fade show active" id="individualFormTab">
+          <form id="individualRegisterForm">
+            <div class="mb-3">
+              <input type="text" placeholder="用户名" id="individualUsername" name="username"/>
+            </div>
+            <div class="mb-3">
+              <input type="text" placeholder="电话号码" id="individualPhoneNumber" name="phoneNumber"/>
+            </div>
+            <div class="mb-3">
+              <input type="text" placeholder="邮箱" id="individualEmail" name="email"/>
+            </div>
+            <div class="mb-3">
+              <input type="password" placeholder="密码" id="individualPassword" name="password"/>
+            </div>
+            <button type="submit" class="btn btn-primary">注册</button>
+            <p class="message"><a href="/auth/login">去登录</a></p>
+            <p class="message"><a href="/">返回首页</a></p>
+          </form>
+        </div>
+    
+        <!-- 组织注册表单 -->
+        <div class="tab-pane fade" id="organizationFormTab">
+          <form id="organizationRegisterForm">
+            <div class="mb-3">
+              <input type="text" placeholder="组织机构全称" id="organizationUsername" name="username"/>
+            </div>
+            <div class="mb-3">
+              <input type="text" placeholder="组织机构代码" id="organizationCode" name="organizationCode"/>
+            </div>
+            <div class="mb-3">
+              <input type="text" placeholder="电话号码" id="organizationPhoneNumber" name="phoneNumber"/>
+            </div>
+            <div class="mb-3">
+              <input type="text" placeholder="邮箱" id="organizationEmail" name="email"/>
+            </div>
+            <div class="mb-3">
+              <input type="password" placeholder="密码" id="organizationPassword" name="password"/>
+            </div>
+            <p></p>
+            <button type="submit" class="btn btn-primary">注册</button>
+            <p class="message"><a href="/auth/login">去登录</a></p>
+            <p class="message"><a href="/">返回首页</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/isemail@3.2.0/lib/index.min.js"></script>
+    <script>
+      function validateIndividualForm() {
+                const passwordInput = document.getElementById('individualPassword');
+                const emailInput = document.getElementById('individualEmail');
+
+                // 使用正则表达式验证邮箱格式
+                const emailRegex = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                if (!emailRegex.test(emailInput.value)) {
+                    alert('请输入有效的邮箱地址。');
+                    return false;
+                }
+
+                // 检查密码格式
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+                if (!passwordRegex.test(passwordInput.value)) {
+                    alert('密码必须包含大小写字母和数字，且至少8位。');
+                    return false;
+                }
+
+                return true;
+        }
+
+          function validateOrganizationForm() {
+              const passwordInput = document.getElementById('organizationPassword');
+              const emailInput = document.getElementById('organizationEmail');
+              // 使用正则表达式验证邮箱格式
+              const emailRegex = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+              if (!emailRegex.test(emailInput.value)) {
+                  alert('请输入有效的邮箱地址。');
+                  return false;
+              }
+              // 检查密码格式
+              const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+              if (!passwordRegex.test(passwordInput.value)) {
+                  alert('密码必须包含大小写字母和数字，且至少8位。');
+                  return false;
+              }
+              return true;
+          }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const individualTab = document.getElementById('individualTab');
+        const organizationTab = document.getElementById('organizationTab');
+        const individualFormTab = document.getElementById('individualFormTab');
+        const organizationFormTab = document.getElementById('organizationFormTab');
+    
+        individualTab.addEventListener('click', function() {
+          individualFormTab.classList.add('show', 'active');
+          organizationFormTab.classList.remove('show', 'active');
+        });
+    
+        organizationTab.addEventListener('click', function() {
+          organizationFormTab.classList.add('show', 'active');
+          individualFormTab.classList.remove('show', 'active');
+        });
+
+        
+
+        document.getElementById('individualRegisterForm').addEventListener('submit', async function (event) {
+          event.preventDefault();
+          
+
+          const formData = {
+            username: document.getElementById('individualUsername').value,
+            phoneNumber: document.getElementById('individualPhoneNumber').value,
+            email: document.getElementById('individualEmail').value,
+            password: document.getElementById('individualPassword').value,
+          };
+          console.log(formData)
+
+          if (!validateIndividualForm()) {
+               // 如果验证未通过，不执行后续的表单提交逻辑
+              return;
+          }
+
+          try {
+            const response = await fetch('/auth/register', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert(data.message);
+              windows.location.href='/login';
+            } else {
+              alert(data.error);
+            }
+          } catch (error) {
+            console.error('Error during registration:', error);
+            // alert('注册时发生错误。');
+          }
+        });
+
+        document.getElementById('organizationRegisterForm').addEventListener('submit', async function (event) {
+          event.preventDefault();
+
+          const formData = {
+            username: document.getElementById('organizationUsername').value,
+            phoneNumber: document.getElementById('organizationPhoneNumber').value,
+            email: document.getElementById('organizationEmail').value,
+            password: document.getElementById('organizationPassword').value,
+            organizationCode: document.getElementById('organizationCode').value,
+          };
+
+          if (!validateOrganizationForm()) {
+              // 如果验证未通过，不执行后续的表单提交逻辑
+               return;
+          }
+
+          try {
+            const response = await fetch('/auth/register', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert(data.message);
+              windows.location.href='/login';
+            } else {
+              alert(data.error);
+            }
+          } catch (error) {
+            console.error('Error during registration:', error);
+            alert('注册时发生错误。');
+          }
+        });
+      });
+
+      </script>
+    </div>
+  </div>
+  </div>
+</body>
+</html>
