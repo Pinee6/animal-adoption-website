@@ -1,4 +1,4 @@
-##如何运行：
+## 如何运行：
 1. 导入所有包
   在命令行中npm install
 2. 配置数据库
@@ -6,11 +6,11 @@
 3. 运行
   运行app.js
 
-##介绍：
-前端：HTML+CSS+Bootstrap
-后端：Express+EJS+MySQL
+## 介绍：
+* 前端：HTML+CSS+Bootstrap
+* 后端：Express+EJS+MySQL
 
-##目录
+## 目录
 * config目录下为数据库配置
 * models目录下为数据库中两张表animal和user的模型
 * public目录下为图片、css等资源
